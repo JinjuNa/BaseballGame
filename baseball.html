@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .container{
+        width:500px;
+        height: 600px;
+        background-image: url(./image/main.jpg);
+        background-size: cover;
+        background-position: center;
+        margin:0 auto;
+    }
+
+    h1{
+        color:lightcyan;
+        text-align: center;
+    }
+
+    input{
+            font-size:20px;
+            display: block;
+            margin:0 auto;
+            width:150px;
+            height: 40px;
+            background-color: slateblue;
+            margin-top:420px;
+    }
+
+    input:hover{
+            background-color: tomato;
+    }
+
+    #result{
+        color:white;
+        font-size: 25px;
+        text-align: center;
+        margin-top:10px;
+    }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+    <h1 id="intro"></h1>
+    <input type="button" value="START" onclick="game()">
+    
+    
+    <div id="result">결과</div>
+    <script>
+
+    var user = prompt("당신의 이름을 입력해주세요.")
+    document.getElementById("intro").innerHTML = "안녕하세요 "+ user + "님, 반갑습니다. <br>야구게임을 시작하시겠습니까?"
+    
+    function game(){
+    var ans = prompt("중복되지 않은 세자리 정수를 입력하세요");
+    var num = Number(ans);
+    var len = ans.length;
+    var arr = [];
+    //validation?
+    for(var i=0; i<len; i++){
+        arr[2-i] = num%10;
+        num = parseInt(num/10)
+    }
+    console.log(arr);
+    var number1 = arr[0];
+    var number2 = arr[1];
+    var number3 = arr[2];
+
+    var trial = prompt("어떤 숫자일까요?");
+    var trialNum = Number(trial);
+    var trialArr = [];
+
+    for(var i=0; i<len; i++){
+        trialArr[2-i] = trialNum%10;
+        trialNum = parseInt(trialNum/10)
+    }
+    console.log(trialArr);
+
+    var st = 0;
+    var b = 0;
+
+    var trial1 = trialArr[0];
+    var trial2 = trialArr[1];
+    var trial3 = trialArr[2];
+
+    
+        switch(trial1){
+        case number1 :
+        st += 1;
+        break;
+        case number2 :
+        b +=1;
+        break;
+        case number3 :
+        b +=1;
+        break;
+        }
+
+        switch(trial2){
+        case number2 :
+        st += 1;
+        break;
+        case number1 :
+        b +=1;
+        break;
+        case number3 :
+        b +=1;
+        break;
+        }
+
+        switch(trial3){
+        case number3 :
+        st += 1;
+        break;
+        case number2 :
+        b +=1;
+        break;
+        case number1 :
+        b +=1;
+        break;
+        }
+
+    console.log(st);
+    console.log(b)
+    
+    if(st == 3){
+        document.getElementById("result").innerHTML = "정답입니다."
+    }else if(st ==2){
+        document.getElementById("result").innerHTML = "2스트라이크"
+    }else if(st ==1){
+        if(b ==2){
+            document.getElementById("result").innerHTML = "1스트라이크 2볼"
+        }else if(b==1){
+            document.getElementById("result").innerHTML = "1스트라이크 1볼"
+        }else if(b==0){
+            document.getElementById("result").innerHTML = "1스트라이크"
+        }
+    }else if(st ==0){
+        if(b==3){
+            document.getElementById("result").innerHTML = "3볼"
+        }else if(b==2){
+            document.getElementById("result").innerHTML = "2볼"
+        }else if(b==1){
+            document.getElementById("result").innerHTML = "1볼"
+        }else if(b==0){
+            document.getElementById("result").innerHTML = "아웃"
+        }
+    }
+    }
+    </script>
+    </div>
+</body>
+</html>
